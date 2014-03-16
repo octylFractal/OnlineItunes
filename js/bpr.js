@@ -40,18 +40,18 @@
             this.setPosition(this.position);
         },
 
-        setMark3: function(marker) {
+        setMark2: function(marker) {
             marker = parseInt(marker);
-            if (marker > this.mark2) {
-                this.mark3 = this.mark2;
+            if (marker > this.mark3) {
+                this.mark2 = this.mark3;
                 return;
             }
 
-            this.mark3 = marker;
+            this.mark2 = marker;
         },
 
-        setMark2: function(marker) {
-            this.mark2 = parseInt(marker);
+        setMark3: function(marker) {
+            this.mark3 = parseInt(marker);
         },
 
         setMaximum: function(maximum) {
@@ -84,15 +84,15 @@
                     return;
                 }
 
-                this.element.find('.bar-danger').css('width', this.mark3 + "%");
-                if (this.percent > this.mark3 && this.percent <= this.mark2) {
-                    this.element.find('.bar-warning').css('width', (this.percent - this.mark3) + "%");
+                this.element.find('.bar-danger').css('width', this.mark2 + "%");
+                if (this.percent > this.mark2 && this.percent <= this.mark3) {
+                    this.element.find('.bar-warning').css('width', (this.percent - this.mark2) + "%");
                     this.element.find('.bar-success').css('width', "0%");
                     return;
                 }
 
-                this.element.find('.bar-warning').css('width', (this.mark2 - this.mark3) + "%");
-                this.element.find('.bar-success').css('width', (this.percent - this.mark2) + "%");
+                this.element.find('.bar-warning').css('width', (this.mark3 - this.mark2) + "%");
+                this.element.find('.bar-success').css('width', (this.percent - this.mark3) + "%");
 
             } finally {
                 this._triggerPositionChanged();
@@ -146,7 +146,7 @@
     var DRPGlobal = {};
 
     DRPGlobal.template = '<span class="sr-only">Sorry, but this app is not avaliabel on screen readers.</span>' +
-        '<div class="progress progress-striped active">' +
+        '<div class="progress progress-striped">' +
         '<div class="bar bar-danger progress-bar progress-bar-danger" style="width: 0%;"></div>' +
         '<div class="bar bar-warning progress-bar progress-bar-warning" style="width: 0%;"></div>' +
         '<div class="bar bar-success progress-bar progress-bar-success" style="width: 0%;"></div>' +

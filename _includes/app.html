@@ -11,6 +11,13 @@ var OI = {
                 maximum: 100,
                 step: 2
             });
+            this.progressBar.on("positionChanged", function (event) {
+                if (event.position >= 100) {
+                    setTimeout(function () {
+                        OI.progressBar.progressbar("reset");
+                    }, 1000);
+                }
+            });
             this.chargeBar.call(this);
         },
     chargeBar:

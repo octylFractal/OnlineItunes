@@ -32,15 +32,18 @@ var OILoader = {
     load:
         function() {
             jQuery.getScript("js/app.js", function (){
+                OILoader.progstop = true;
+                OILoader.progressBar.toggle(400);
                 OILoader.progressBar.progressbar("setMark2", 0);
                 OILoader.progressBar.progressbar("setMark3", 0);
                 OILoader.progressBar.progressbar("setPosition", 100);
-                console.log("completed");
-            }).fail(function (){
-                console.log("died");
-            }).done(function (){
+                console.log("Loaded app.");
+            }).fail(function (jqxhr, settings, exception){
                 OILoader.progstop = true;
-                OILoader.progressBar.toggle(400);
+                OILoader.progressBar.progressbar("setMark3", 100);
+                OILoader.progressBar.progressbar("setMark2", 100);
+                OILoader.progressBar.progressbar("setPosition", 100);
+                console.log("app load died from " + exception);
             });
         }
 };

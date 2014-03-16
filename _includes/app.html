@@ -16,8 +16,42 @@ OI.progressHandler = {
             OI.progressHandler.specialValuesColorChange(barid, value);
         },
     specialValuesColorChange:
-        function(barid, value) {
-        },
+        (function() {
+            var colorcount = 6;
+            var spacing = 100 / colorcount;
+            /* Colors: dark gray/gray/red/orange/blue/green */
+            var colors = ["default", "primary", "danger", "warning", "info", "success"];
+            var colorpercents = [];
+            var last = 0;
+            /* Add color -> percent mappings */
+            for (var i = 0; i < colorcount; i++) {
+                colorpercents[i] = last;
+                last += spacing;
+            }
+            if (colorpercents[colorcount - 1] !== 100) {
+                /* make sure we hit the last one on 100 */
+                colorpercents[colorcount - 1] = 100;
+            }
+            /* Build percent -> color mappings, using the color mappings */
+            var percentcolors = [];
+            var nextIndex = 0;
+            /* note: 101 values, 0 -> 100  */
+            for (var i = 0; i <= 100; i++) {
+                var color = colorpercents[nextIndex];
+                if (i <= color) {
+                    /* Color range valid */
+                    percentcolors[i] = colors[nextIndex];
+                } else {
+                    /* invalid, next one */
+                    nextIndex++;
+                    i--;
+                }
+            }
+            return function (barid, value) {
+                console.log(percentcolors[value]);
+                jQuery("#" + barid).attr("class", "progress-bar progress-bar-" + percentcolors[value]);
+            }
+        })(),
     getValue:
         function (barid) {
             return parseInt(jQuery("#"+barid).attr('aria-valuenow'));

@@ -3,9 +3,16 @@
 var OI = {
     init:
         function() {
-            OI.progressHandler.charge();
+            OI.load();
+        },
+    load:
+        function() {
+        
         }
 };
+
+// For later
+/*
 OI.progressHandler = {
     charge_offset: 3,
     updateBar:
@@ -15,34 +22,38 @@ OI.progressHandler = {
             jQuery("#"+barid).css("width", value + "%");
             OI.progressHandler.specialValuesColorChange(barid, value);
         },
+    createBar:
+        function(newid) {
+        
+        },
     specialValuesColorChange:
         (function() {
             var colorcount = 4;
             var spacing = Math.round(100 / colorcount);
-            /* Colors: red/orange/blue/green */
+            /* Colors: red/orange/blue/green *
             var colors = ["danger", "warning", "info", "success"];
             var colorpercents = [];
             var last = 0;
-            /* Add color -> percent mappings */
+            /* Add color -> percent mappings *
             for (var i = 0; i < colorcount; i++) {
                 last += spacing;
                 colorpercents[i] = last;
             }
             if (colorpercents[colorcount - 1] !== 100) {
-                /* make sure we hit the last one on 100 */
+                /* make sure we hit the last one on 100 *
                 colorpercents[colorcount - 1] = 100;
             }
-            /* Build percent -> color mappings, using the color mappings */
+            /* Build percent -> color mappings, using the color mappings *
             var percentcolors = [];
             var nextIndex = 0;
-            /* note: 101 values, 0 -> 100  */
+            /* note: 101 values, 0 -> 100  *
             for (var i = 0; i <= 100; i++) {
                 var color = colorpercents[nextIndex];
                 if (i <= color) {
-                    /* Color range valid */
+                    /* Color range valid *
                     percentcolors[i] = colors[nextIndex];
                 } else {
-                    /* invalid, next one */
+                    /* invalid, next one *
                     nextIndex++;
                     i--;
                 }
@@ -67,18 +78,12 @@ OI.progressHandler = {
         }
 };
 
+// */
+
 jQuery(document).ready(function () {
     OI.init();
 });
 </script>
 
 <p id="app-loading-p">
-<div class="progress progress-striped active">
-  <div id="prog-bar" class="progress-bar"  role="progressbar" aria-valuenow="0" 
-    aria-valuemin="0" aria-valuemax="100">
-    <div id="progress-text" class="sr-only">
-        <span class="number-progress">0</span><span id="progress-static-text">% Complete</span>
-    </div>
-  </div>
-</div>
 </p>

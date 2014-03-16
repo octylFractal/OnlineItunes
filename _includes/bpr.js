@@ -145,10 +145,11 @@
 
     var DRPGlobal = {};
 
-    DRPGlobal.template = '<div class="progress progress-striped active">' +
-        '<div class="bar bar-success progress-bar progress-bar-success" style="width: 0%;"></div>' +
-        '<div class="bar bar-warning progress-bar progress-bar-warning" style="width: 0%;"></div>' +
+    DRPGlobal.template = '<span class="sr-only">Sorry, but this app is not avaliabel on screen readers.</span>' +
+        '<div class="progress progress-striped active">' +
         '<div class="bar bar-danger progress-bar progress-bar-danger" style="width: 0%;"></div>' +
+        '<div class="bar bar-warning progress-bar progress-bar-warning" style="width: 0%;"></div>' +
+        '<div class="bar bar-success progress-bar progress-bar-success" style="width: 0%;"></div>' +
         '</div>';
 
 }(window.jQuery);

@@ -4,7 +4,7 @@ var OILoader = {
     progstop: false,
     init:
         function() {
-            this.progressBar = jQuery("#progress-bar-div");
+            this.progressBar = jQuery("#prog-div");
             this.progressBar.progressbar({
                 mark2: 33,
                 mark3: 66,
@@ -12,14 +12,14 @@ var OILoader = {
                 step: 2
             });
             this.progressBar.on("positionChanged", function (event) {
-                if (event.position >= 100) {
+                if (event.position >= 100 && !OILoader.progstop) {
                     setTimeout(function () {
                         OILoader.progressBar.progressbar("reset");
                     }, 1000);
                 }
             });
             this.chargeBar.call(this);
-            this.load();
+            setTimeout(this.load, 1000);
         },
     chargeBar:
         function() {
@@ -31,7 +31,17 @@ var OILoader = {
         },
     load:
         function() {
-            var ajax = jQuery.ajax();
+            jQuery.getScript("js/app.js", function (){
+                OILoader.progressBar.progressbar("setMark2", 0);
+                OILoader.progressBar.progressbar("setMark3", 0);
+                OILoader.progressBar.progressbar("setPosition", 100);
+                console.log("completed");
+            }).fail(function (){
+                console.log("died");
+            }).done(function (){
+                OILoader.progstop = true;
+                OILoader.progressBar.toggle(400);
+            });
         }
 };
 jQuery(document).ready(function () {
@@ -39,5 +49,9 @@ jQuery(document).ready(function () {
 });
 </script>
 
-<div id="progress-bar-div">
-</div>
+<center>
+    <div id="prog-div">
+    </div>
+    <div id="app">
+    </div>
+</center>

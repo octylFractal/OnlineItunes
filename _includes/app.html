@@ -3,6 +3,8 @@
 
 function updateBar(barid, value) {
     jQuery("#"+barid).attr('aria-valuenow', value);
+    jQuery("#"+barid+" #sr-number-progress").html(value);
+    jQuery("#"+barid).css("width", value + "%");
 }
 
 function getValue(barid) {
@@ -11,9 +13,10 @@ function getValue(barid) {
 
 function charge() {
     if(getValue("prog-bar") >= 100) {
+        jQuery("#prog-bar").addClass("progress-bar-success");
         return;
     }
-    updateBar("prog-bar", getValue("prog-bar") + 10);
+    updateBar("prog-bar", getValue("prog-bar") + 2);
     setTimeout(charge, 100);
 }
 

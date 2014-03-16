@@ -2,27 +2,25 @@
 layout: default
 title: Welcome!
 ---
-<center>
-<div id="panel">
+<div class="panel col-sm-8 col-sm-offset-2">
 <p>
 Welcome to the online local iTunes library manager. This manages your iTunes library for you, 
 giving you a list of missing files, playing them for you, and more!
 </p>
 <p>
 A list of the things to be added:
-<ul>
-<li>Missing File Listings</li>
-<li>
+<ul class="list-group">
+<li class="list-group-item well-sm">Missing File Listings</li>
+<li class="list-group-item well-sm">
     Media Player:
-    <ul>
-        <li>mp3</li>
-        <li>wav</li>
-        <li>mp4</li>
-        <li>More to come!</li>
+    <ul class="col-sm-offset-1">
+        <li class="panel">mp3</li>
+        <li class="panel">wav</li>
+        <li class="panel">mp4</li>
+        <li class="panel">More to come!</li>
     </ul>
 </li>
 </ul>
 </p>
 {% include app.html %}
 </div>
-</center>

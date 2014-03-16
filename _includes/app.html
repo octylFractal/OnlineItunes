@@ -1,16 +1,19 @@
 <script>
 // app here
-var pbar = jQuery('#prog-bar');
 
-function updateBar(value) {
-    pbar.attr('aria-valuenow', value);
+function updateBar(barid, value) {
+    jQuery("#"+barid).attr('aria-valuenow', value);
+}
+
+function getValue(barid) {
+    return parseInt(jQuery("#"+barid).attr('aria-valuenow'));
 }
 
 function charge() {
-    if(pbar.attr('aria-valuenow') >= 100) {
+    if(getValue("prog-bar") >= 100) {
         return;
     }
-    updateBar(pbar.attr('aria-valuenow') + 10);
+    updateBar("prog-bar", getValue("prog-bar") + 10);
     setTimeout(100, charge);
 }
 

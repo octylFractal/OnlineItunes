@@ -22,7 +22,6 @@ OI.progressHandler.getValue = function (barid) {
 };
 
 OI.progressHandler.charge = function() {
-    console.log(OI.progressHandler.getValue("prog-bar"));
     if(OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset >= 100) {
         jQuery("#prog-bar").addClass("progress-bar-success");
         OI.progressHandler.updateBar("prog-bar", 100);
@@ -42,8 +41,7 @@ jQuery(document).ready(function () {
   <div id="prog-bar" class="progress-bar"  role="progressbar" aria-valuenow="0" 
     aria-valuemin="0" aria-valuemax="100">
     <div id="progress-text">
-        <span class="number-progress">0</span>
-        <span id="progress-static-text">% Complete</span>
+        <span class="number-progress">0</span><span id="progress-static-text">% Complete</span>
     </div>
   </div>
 </div>

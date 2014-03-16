@@ -1,27 +1,38 @@
 <script>
 // app here
+var OI = {
+};
 
-function updateBar(barid, value) {
+OI.init = function() {
+    OI.progressHandler.charge();
+};
+
+OI.progressHandler = {
+    charge_offset: 3
+};
+
+OI.progressHandler.updateBar = function(barid, value) {
     jQuery("#"+barid).attr('aria-valuenow', value);
-    jQuery("#"+barid+" #sr-number-progress").html(value);
+    jQuery("#"+barid+" .number-progress").html(value);
     jQuery("#"+barid).css("width", value + "%");
-}
+};
 
-function getValue(barid) {
+OI.progressHandler.getValue = function (barid) {
     return parseInt(jQuery("#"+barid).attr('aria-valuenow'));
-}
+};
 
-function charge() {
-    if(getValue("prog-bar") >= 100) {
+OI.progressHandler.charge = function() {
+    console.log(OI.progressHandler.getValue("prog-bar"));
+    if(OI.progressHandler.getValue("prog-bar") >= 100) {
         jQuery("#prog-bar").addClass("progress-bar-success");
         return;
     }
-    updateBar("prog-bar", getValue("prog-bar") + 2);
-    setTimeout(charge, 100);
-}
+    OI.progressHandler.updateBar("prog-bar", OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset);
+    setTimeout(OI.progressHandler.charge, 75);
+};
 
 jQuery(document).ready(function () {
-    charge();
+    OI.init();
 });
 </script>
 
@@ -29,7 +40,7 @@ jQuery(document).ready(function () {
 <div class="progress progress-striped active">
   <div id="prog-bar" class="progress-bar"  role="progressbar" aria-valuenow="0" 
     aria-valuemin="0" aria-valuemax="100">
-    <span class="sr-only"><div id="sr-number-progress">0</div>% Complete</span>
+    <span><div class="number-progress">0</div>% Complete</span>
   </div>
 </div>
 </p>

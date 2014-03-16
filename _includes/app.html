@@ -4,91 +4,21 @@ var OI = {
     progressBar: undefined,
     init:
         function() {
-            OI.progressBar = jQuery("#progress-bar-div");
-            OI.progressBar.progressbar({
+            this.progressBar = jQuery("#progress-bar-div");
+            this.progressBar.progressbar({
                 mark2: 33,
                 mark3: 66,
                 maximum: 100,
                 step: 2
             });
-            OI.chargeBar();
+            this.chargeBar.call(this);
         },
     chargeBar:
         function() {
-            OI.progressBar.progressbar('stepIt');
-            setTimeout(OI.chargeBar, 100);
+            this.progressBar.progressbar('stepIt');
+            setTimeout(jQuery.proxy(this.chargeBar, this), 100);
         }
 };
-
-// For later
-/*
-OI.progressHandler = {
-    charge_offset: 3,
-    updateBar:
-        function(barid, value) {
-            jQuery("#"+barid).attr('aria-valuenow', value);
-            jQuery("#"+barid+" .number-progress").html(value);
-            jQuery("#"+barid).css("width", value + "%");
-            OI.progressHandler.specialValuesColorChange(barid, value);
-        },
-    createBar:
-        function(newid) {
-        
-        },
-    specialValuesColorChange:
-        (function() {
-            var colorcount = 4;
-            var spacing = Math.round(100 / colorcount);
-            /* Colors: red/orange/blue/green *
-            var colors = ["danger", "warning", "info", "success"];
-            var colorpercents = [];
-            var last = 0;
-            /* Add color -> percent mappings *
-            for (var i = 0; i < colorcount; i++) {
-                last += spacing;
-                colorpercents[i] = last;
-            }
-            if (colorpercents[colorcount - 1] !== 100) {
-                /* make sure we hit the last one on 100 *
-                colorpercents[colorcount - 1] = 100;
-            }
-            /* Build percent -> color mappings, using the color mappings *
-            var percentcolors = [];
-            var nextIndex = 0;
-            /* note: 101 values, 0 -> 100  *
-            for (var i = 0; i <= 100; i++) {
-                var color = colorpercents[nextIndex];
-                if (i <= color) {
-                    /* Color range valid *
-                    percentcolors[i] = colors[nextIndex];
-                } else {
-                    /* invalid, next one *
-                    nextIndex++;
-                    i--;
-                }
-            }
-            return function (barid, value) {
-                jQuery("#" + barid).attr("class", "progress-bar progress-bar-" + percentcolors[value]);
-            }
-        })(),
-    getValue:
-        function (barid) {
-            return parseInt(jQuery("#"+barid).attr('aria-valuenow'));
-        },
-    charge:
-        function() {
-            if(OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset >= 100) {
-                OI.progressHandler.updateBar("prog-bar", 100);
-                return;
-            }
-            OI.progressHandler.updateBar("prog-bar", OI.progressHandler.getValue("prog-bar")
-                + OI.progressHandler.charge_offset);
-            setTimeout(OI.progressHandler.charge, 75);
-        }
-};
-
-// */
-
 jQuery(document).ready(function () {
     OI.init();
 });

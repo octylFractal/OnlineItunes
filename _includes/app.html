@@ -1,34 +1,37 @@
 <script>
 // app here
 var OI = {
+    init:
+        function() {
+            OI.progressHandler.charge();
+        }
 };
-
-OI.init = function() {
-    OI.progressHandler.charge();
-};
-
 OI.progressHandler = {
-    charge_offset: 3
-};
-
-OI.progressHandler.updateBar = function(barid, value) {
-    jQuery("#"+barid).attr('aria-valuenow', value);
-    jQuery("#"+barid+" .number-progress").html(value);
-    jQuery("#"+barid).css("width", value + "%");
-};
-
-OI.progressHandler.getValue = function (barid) {
-    return parseInt(jQuery("#"+barid).attr('aria-valuenow'));
-};
-
-OI.progressHandler.charge = function() {
-    if(OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset >= 100) {
-        jQuery("#prog-bar").addClass("progress-bar-success");
-        OI.progressHandler.updateBar("prog-bar", 100);
-        return;
-    }
-    OI.progressHandler.updateBar("prog-bar", OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset);
-    setTimeout(OI.progressHandler.charge, 75);
+    charge_offset: 3,
+    updateBar:
+        function(barid, value) {
+            jQuery("#"+barid).attr('aria-valuenow', value);
+            jQuery("#"+barid+" .number-progress").html(value);
+            jQuery("#"+barid).css("width", value + "%");
+            OI.progressHandler.specialValuesColorChange(barid, value);
+        },
+    specialValuesColorChange:
+        function(barid, value) {
+        },
+    getValue:
+        function (barid) {
+            return parseInt(jQuery("#"+barid).attr('aria-valuenow'));
+        },
+    charge:
+        function() {
+            if(OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset >= 100) {
+                OI.progressHandler.updateBar("prog-bar", 100);
+                return;
+            }
+            OI.progressHandler.updateBar("prog-bar", OI.progressHandler.getValue("prog-bar")
+                + OI.progressHandler.charge_offset);
+            setTimeout(OI.progressHandler.charge, 75);
+        }
 };
 
 jQuery(document).ready(function () {

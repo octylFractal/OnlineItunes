@@ -7,14 +7,14 @@
 
         var hasOptions = typeof options == 'object';
 
-        this.dangerMarker = $.fn.progressbar.defaults.dangerMarker;
-        if (hasOptions && typeof options.dangerMarker == 'number') {
-            this.setDangerMarker(options.dangerMarker);
+        this.mark2 = $.fn.progressbar.defaults.mark2;
+        if (hasOptions && typeof options.mark2 == 'number') {
+            this.setMark2(options.mark2);
         }
 
-        this.warningMarker = $.fn.progressbar.defaults.warningMarker;
-        if (hasOptions && typeof options.warningMarker == 'number') {
-            this.setWarningMarker(options.warningMarker);
+        this.mark3 = $.fn.progressbar.defaults.mark3;
+        if (hasOptions && typeof options.mark3 == 'number') {
+            this.setMark3(options.mark3);
         }
 
         this.maximum = $.fn.progressbar.defaults.maximum;
@@ -40,18 +40,18 @@
             this.setPosition(this.position);
         },
 
-        setWarningMarker: function(marker) {
+        setMark3: function(marker) {
             marker = parseInt(marker);
-            if (marker > this.dangerMarker) {
-                this.warningMarker = this.dangerMarker;
+            if (marker > this.mark2) {
+                this.mark3 = this.mark2;
                 return;
             }
 
-            this.warningMarker = marker;
+            this.mark3 = marker;
         },
 
-        setDangerMarker: function(marker) {
-            this.dangerMarker = parseInt(marker);
+        setMark2: function(marker) {
+            this.mark2 = parseInt(marker);
         },
 
         setMaximum: function(maximum) {
@@ -77,22 +77,22 @@
             this.percent = Math.ceil((this.position / this.maximum) * 100);
 
             try {
-                if (this.percent <= this.warningMarker) {
-                    this.element.find('.bar-success').css('width', this.percent + "%");
+                if (this.percent <= this.mark2) {
+                    this.element.find('.bar-danger').css('width', this.percent + "%");
                     this.element.find('.bar-warning').css('width', "0%");
-                    this.element.find('.bar-danger').css('width', "0%");
+                    this.element.find('.bar-success').css('width', "0%");
                     return;
                 }
 
-                this.element.find('.bar-success').css('width', this.warningMarker + "%");
-                if (this.percent > this.warningMarker && this.percent <= this.dangerMarker) {
-                    this.element.find('.bar-warning').css('width', (this.percent - this.warningMarker) + "%");
-                    this.element.find('.bar-danger').css('width', "0%");
+                this.element.find('.bar-danger').css('width', this.mark3 + "%");
+                if (this.percent > this.mark3 && this.percent <= this.mark2) {
+                    this.element.find('.bar-warning').css('width', (this.percent - this.mark3) + "%");
+                    this.element.find('.bar-success').css('width', "0%");
                     return;
                 }
 
-                this.element.find('.bar-warning').css('width', (this.dangerMarker - this.warningMarker) + "%");
-                this.element.find('.bar-danger').css('width', (this.percent - this.dangerMarker) + "%");
+                this.element.find('.bar-warning').css('width', (this.mark2 - this.mark3) + "%");
+                this.element.find('.bar-success').css('width', (this.percent - this.mark2) + "%");
 
             } finally {
                 this._triggerPositionChanged();
@@ -135,8 +135,8 @@
     };
 
     $.fn.progressbar.defaults = {
-        warningMarker: 50,
-        dangerMarker: 90,
+        mark3: 50,
+        mark2: 90,
         maximum: 100,
         step: 1
     };

@@ -1,13 +1,21 @@
 <script>
 // app here
 var OI = {
+    progressBar: undefined,
     init:
         function() {
-            OI.load();
+            progressBar = jQuery("#app-loading-p");
+            OI.chargeBar();
         },
-    load:
+    chargeBar:
         function() {
-        
+            OI.progressBar.progressbar({
+                mark2: 33,
+                mark3: 66,
+                maximum: 100,
+                step: 5
+            });
+            setTimeout(OI.chargeBar, 100);
         }
 };
 
@@ -85,5 +93,5 @@ jQuery(document).ready(function () {
 });
 </script>
 
-<p id="app-loading-p">
-</p>
+<div id="app-loading-p">
+</div>

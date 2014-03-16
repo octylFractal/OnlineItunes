@@ -23,8 +23,9 @@ OI.progressHandler.getValue = function (barid) {
 
 OI.progressHandler.charge = function() {
     console.log(OI.progressHandler.getValue("prog-bar"));
-    if(OI.progressHandler.getValue("prog-bar") >= 100) {
+    if(OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset >= 100) {
         jQuery("#prog-bar").addClass("progress-bar-success");
+        OI.progressHandler.updateBar("prog-bar", 100);
         return;
     }
     OI.progressHandler.updateBar("prog-bar", OI.progressHandler.getValue("prog-bar") + OI.progressHandler.charge_offset);
@@ -40,7 +41,10 @@ jQuery(document).ready(function () {
 <div class="progress progress-striped active">
   <div id="prog-bar" class="progress-bar"  role="progressbar" aria-valuenow="0" 
     aria-valuemin="0" aria-valuemax="100">
-    <span><div class="number-progress">0</div>% Complete</span>
+    <div id="progress-text">
+        <span class="number-progress">0</span>
+        <span id="progress-static-text">% Complete</span>
+    </div>
   </div>
 </div>
 </p>

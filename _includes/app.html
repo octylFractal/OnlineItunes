@@ -14,7 +14,7 @@ function charge() {
         return;
     }
     updateBar("prog-bar", getValue("prog-bar") + 10);
-    setTimeout(100, charge);
+    setTimeout(charge, 100);
 }
 
 jQuery(document).ready(function () {

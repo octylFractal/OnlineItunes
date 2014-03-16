@@ -1,7 +1,7 @@
 <script>
-// app here
-var OI = {
+var OILoader = {
     progressBar: undefined,
+    progstop: false,
     init:
         function() {
             this.progressBar = jQuery("#progress-bar-div");
@@ -14,20 +14,28 @@ var OI = {
             this.progressBar.on("positionChanged", function (event) {
                 if (event.position >= 100) {
                     setTimeout(function () {
-                        OI.progressBar.progressbar("reset");
+                        OILoader.progressBar.progressbar("reset");
                     }, 1000);
                 }
             });
             this.chargeBar.call(this);
+            this.load();
         },
     chargeBar:
         function() {
+            if (OILoader.progstop) {
+                return;
+            }
             this.progressBar.progressbar('stepIt');
-            setTimeout(jQuery.proxy(this.chargeBar, this), 100);
+            setTimeout(jQuery.proxy(this.chargeBar, this), 55);
+        },
+    load:
+        function() {
+            var ajax = jQuery.ajax();
         }
 };
 jQuery(document).ready(function () {
-    OI.init();
+    OILoader.init();
 });
 </script>
 

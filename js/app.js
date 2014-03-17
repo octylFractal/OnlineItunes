@@ -1,10 +1,11 @@
 // app.js
 // OnlineiTunes
 var OI = {
-    $app: jQuery('#app-div'),
+    $app: jQuery('#app'),
     load:
-        function() {
+        function($) {
             console.log("Loading app...");
+            this.$app.append($('<p>Loaded!</p>'));
         }
 };
-jQuery(document).ready(OI.load);
+jQuery(document).ready(jQuery.proxy(OI.load, OI));

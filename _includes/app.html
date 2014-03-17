@@ -49,6 +49,7 @@ var OILoader = {
                     }, 1000);
                 });
                 console.log("app load died from " + exception);
+                throw exception;
             });
         },
     pbarsetup:

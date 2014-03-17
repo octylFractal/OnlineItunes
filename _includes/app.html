@@ -4,13 +4,9 @@ var OILoader = {
     progstop: false,
     init:
         function() {
-            this.progressBar = jQuery("#prog-div");
-            this.progressBar.progressbar({
-                mark2: 33,
-                mark3: 66,
-                maximum: 100,
-                step: 2
-            });
+            this.progressBar = jQuery('#prog-div');
+            this.progressBar.progressbar();
+            this.pbarsetup();
             this.progressBar.on("positionChanged", function (event) {
                 if (event.position >= 100 && !OILoader.progstop) {
                     setTimeout(function () {
@@ -43,9 +39,35 @@ var OILoader = {
                 OILoader.progressBar.progressbar("setMark3", 100);
                 OILoader.progressBar.progressbar("setMark2", 100);
                 OILoader.progressBar.progressbar("setPosition", 100);
+                OILoader.progressBar.click(function() {
+                    OILoader.pbarsetup();
+                    OILoader.progressBar.unbind("click");
+                    OILoader.progstop = false;
+                    setTimeout(function() {
+                        OILoader.chargeBar.call(OILoader);
+                        setTimeout(OILoader.load, 1000);
+                    }, 1000);
+                });
                 console.log("app load died from " + exception);
             });
-        }
+        },
+    pbarsetup:
+        (function() {
+            var values = {
+                mark2: 33,
+                mark3: 66,
+                maximum: 100,
+                step: 2,
+                pos: 0
+            };
+            return function() {
+                OILoader.progressBar.progressbar("setMark3", values.mark3);
+                OILoader.progressBar.progressbar("setMark2", values.mark2);
+                OILoader.progressBar.progressbar("setMaximum", values.maximum);
+                OILoader.progressBar.progressbar("setStep", values.step);
+                OILoader.progressBar.progressbar("setPosition", values.pos);
+            }
+        })()
 };
 jQuery(document).ready(function () {
     OILoader.init();

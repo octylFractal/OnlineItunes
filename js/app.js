@@ -5,7 +5,7 @@ var OI = {
     load:
         function($) {
             console.log("Loading app...");
-            this.$app.append($('<p>Loaded!</p>'));
+            this.$app.append($.parseHTML('<p>Loaded!</p>'));
         }
 };
 jQuery(document).ready(jQuery.proxy(OI.load, OI));

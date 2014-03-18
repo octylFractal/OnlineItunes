@@ -26,7 +26,8 @@ var OI = {
                 $dzone.text("Loading '" + file.name + "'...");
                 
                 // loading file here
-                
+                $xml = OI.XML.decode('<xml/>');
+                $dzone.text("Loaded '" + file.name + "' with data " + OI.XML.encode($xml));
             });
         },
     XML:
@@ -54,7 +55,7 @@ var OI = {
                         return undefined;
                     }
                 }
-            }
+            };
             return obj;
         })(window.jQuery),
     FILE:
@@ -76,13 +77,13 @@ var OI = {
             obj.lastFile = undefined;
             obj.current = function() {
                 return obj.lastFile;
-            }
+            };
             obj.callback = $.noop();
             obj.setCallback = function(callback) {
                 if (callback && typeof callback === 'function') {
                     obj.callback = callback;
                 }
-            }
+            };
             return obj;
         })(window.jQuery)
 };

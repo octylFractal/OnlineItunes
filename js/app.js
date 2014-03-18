@@ -14,10 +14,19 @@ var OI = {
             $app.append(dzone);
             var $dzone = $(dzone);
             $dzone.on('dragover', this.FILE.dragEvent);
-            $dzone.one('drop', this.FILE.selectEvent);
+            $dzone.on('drop', this.FILE.selectEvent);
             this.FILE.setCallback(function(file) {
+                if (file.type !== 'text/xml') {
+                    // not XML, don't do anything
+                    $dzone.text("File '" + file.name + "' is not an XML file. Try again.");
+                    return;
+                }
                 $dzone.off('dragover');
-                $dzone.text("Loading '" + file.name + "'");
+                $dzone.off('drop');
+                $dzone.text("Loading '" + file.name + "'...");
+                
+                // loading file here
+                
             });
         },
     XML:

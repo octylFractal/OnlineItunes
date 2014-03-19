@@ -26,9 +26,11 @@ var OI = {
                 $dzone.text("Loading '" + file.name + "'...");
                 
                 // loading file here
-
-                $xml = OI.XML.decode('<xml/>');
-                $dzone.text("Loaded '" + file.name + "' with data " + OI.XML.encode($xml));
+                OI.FILE.reader(file, function(data) {
+                    console.log(data);
+                    var $xml = OI.XML.decode(data);
+                    $dzone.text("Loaded '" + file.name + "' with data " + OI.XML.encode($xml));
+                });
             });
         },
     XML:
@@ -88,15 +90,15 @@ var OI = {
             // TODO: write a file reader object that automatically loads as needed.
             // and then discards.
             // this one just wraps weirdly around FileReader
-            function InlineReader(file) {
-                this.file = file;
-                this.contents = ""; // NYI
+            function InlineReader(file, callback) {
+                var fin = new FileReader();
+                fin.onload = function(e) {
+                    callback(e.target.result);
+                };
+                fin.readAsText(file);
             }
-            InlineReader.prototype.readAll = function() {
-                // body...
-            };
-            obj.reader = function(file) {
-                return new InlineReader(file);
+            obj.reader = function(file, callback) {
+                return new InlineReader(file, callback);
             };
             return obj;
         })(window.jQuery)

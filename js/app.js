@@ -104,4 +104,4 @@ var OI = {
         })(window.jQuery)
 };
 jQuery(document).ready(jQuery.proxy(OI.load, OI));
-console.log(OI.XML.encode(OI.XML.decode('<xml>LOL_XML</xml>')));
+console.log(OI.XML.encode(OI.XML.decode('<xml>LOL_XML</xml>').find('xml')));

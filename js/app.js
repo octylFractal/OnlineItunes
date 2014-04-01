@@ -29,7 +29,7 @@ var OI = {
                 OI.FILE.reader(file, function(data) {
                     console.log(data);
                     var $xml = OI.XML.decode(data);
-                    $dzone.text("Loaded '" + file.name + "' with data " + OI.XML.encode($xml));
+                    $dzone.text("Loaded '" + file.name + "'.");
                 });
             });
         },

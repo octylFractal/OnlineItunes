@@ -60,7 +60,9 @@ var OI = {
                 }
             };
             obj.textNodes = function($xml) {
-                var textList = $xml.contents().filter(function() { return this.nodeType == 3; });
+                var textList = $xml.contents().filter(function() {
+                    return this.nodeType == 3; 
+                });
                 return textList;
             };
             return obj;

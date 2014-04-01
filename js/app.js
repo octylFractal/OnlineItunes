@@ -59,6 +59,10 @@ var OI = {
                     }
                 }
             };
+            obj.textNodes = function($xml) {
+                var textList = $xml.contents().filter(function() { return this.nodeType == 3; });
+                return textList;
+            };
             return obj;
         })(window.jQuery),
     FILE:
@@ -104,4 +108,4 @@ var OI = {
         })(window.jQuery)
 };
 jQuery(document).ready(jQuery.proxy(OI.load, OI));
-console.log(OI.XML.encode(OI.XML.decode('<xml>LOL_XML</xml>').find('xml')));
+console.log(OI.XML.encode(OI.XML.textNodes(OI.XML.decode('<xml>LOL_XML</xml>').find('xml')));

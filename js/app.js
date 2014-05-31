@@ -11,8 +11,13 @@ var OI = {
                 'Drop Your iTunes XML File Here' +
                 '</div>'
             );
+            var datadiv = $.parseHTML(
+                '<div id="data"></div>'
+            );
             $app.append(dzone);
+            $app.append(datadiv);
             var $dzone = $(dzone);
+            var $data = $(datadiv);
             $dzone.on('dragover', this.FILE.dragEvent);
             $dzone.on('drop', this.FILE.selectEvent);
             this.FILE.setCallback(function(file) {
@@ -27,9 +32,14 @@ var OI = {
                 
                 // loading file here
                 OI.FILE.reader(file, function(data) {
-                    console.log(data);
                     var $xml = OI.XML.decode(data);
-                    $dzone.text("Loaded '" + file.name + "'.");
+                    if ($xml) {
+                        $dzone.text("Loaded '" + file.name + "'.");
+                    } else {
+                        $dzone.text("Failed to load '" + file.name + "'.");
+                        return;
+                    }
+                    $data.text(OI.XML.textNodes($xml));
                 });
             });
         },
@@ -61,7 +71,8 @@ var OI = {
             };
             obj.textNodes = function($xml) {
                 var textList = $xml.contents().filter(function() {
-                    return this.nodeType == 3; 
+                    return this.nodeType == 3;
+
                 });
                 return textList;
             };
